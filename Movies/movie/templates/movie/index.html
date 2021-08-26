@@ -1,0 +1,56 @@
+{% extends 'movie/base.html' %}
+
+{% block body %}
+  <form method="POST">
+    {% csrf_token %}
+    <input type="submit" name="sort_by" value="Top 10">
+    <input type="submit" name="sort_by" value="Last 10">
+  </form>
+<br><br>
+
+  <form>
+  <div class="input-group">
+      <div class="form-outline">
+        <input type="search" name="search" id="search" class="form-control" />
+        <label class="form-label" for="search">Search by movie or artist name</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search">Search</i>
+      </button>
+  </div>
+  </form>
+
+  
+
+
+<table class="table">
+  	<thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Genre</th>
+      <th scope="col">Release date</th>
+      <th scope="col">Language</th>
+      <th scope="col">Rating out of 10</th>
+      <th scope="col">Duration</th>
+    </tr>
+  	</thead>
+  	<tbody>
+  		{% for movie in movies %}
+	    <tr>
+	      <th scope="row">{{movie.id}}</th>
+	      <td>{{movie.name}}</td>
+	      <td>{{movie.genre}}</td>
+	      <td>{{movie.release_date}}</td>
+	      <td>{{movie.language}}</td>
+        <td>{{movie.avg_rating}}</td>
+	      <td>{{movie.duration}} 	hrs</td>
+	      
+	    </tr>
+    	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+

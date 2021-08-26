@@ -1,0 +1,77 @@
+{% extends 'movie/base.html' %}
+
+{%  block body %}
+{% if err %}
+<div class="alert alert-danger" role="alert">
+  {{err}}
+</div>
+{% endif %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="POST">
+	{% csrf_token%}
+
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" value="{% if form.name.value %}{{form.name.value}}{% endif %}">
+    {% if form.name.errors %}
+    {% for error in form.name.errors %}
+      {{error}}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    <label>Genre</label>
+    <input type="text" name="genre" value="{% if form.genre.value %}{{form.genre.value}}{% endif %}">
+    {% if form.genre.errors %}
+    {% for error in form.genre.errors %}
+     <spam class="text-danger"> {{error}}</spam>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    <label>Release Date</label> {% if form.release_date.errors %} test {% endif %}
+     <input type="text" name="release_date" value="{% if form.release_date.value %}{{form.release_date.value}}{% endif %}">
+    {% if form.release_date.errors %}
+    {% for error in form.release_date.errors %}
+      <spam class="text-danger"> {{error}}</spam>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    <label>Language</label>
+    <input type="text" name="language" value="{% if form.language.value %}{{form.language.value}}{% endif %}">
+    {% if form.language.errors %}
+    {% for error in form.language.errors %}
+      {{error}}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    <label>Select Artists</label>
+    {{form.artist}}
+    {% if form.artist.errors %}
+    {% for error in form.artist.errors %}
+      {{error}}
+    {% endfor %}
+    {% endif %}
+  <div class="form-group">
+    <label>Duration</label>
+    <input type="text" name="duration" value="{% if form.duration.value %}{{form.duration.value}}{% endif %}">
+    {% if form.duration.errors %}
+    {% for error in form.duration.errors %}
+      {{error}}
+    {% endfor %}
+    {% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
